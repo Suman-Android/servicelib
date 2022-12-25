@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.chaquo.python'  // Must come after com.android.application
+    id 'maven-publish'
 }
 
 android {
@@ -15,6 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         python {
+//            buildPython "C:/suman.1.singh/AppData/Local/python.exe"
             version "3.8"
             // If Chaquopy fails to find Python on your build machine, enable the following
             // line and edit it to point to Python 3.5 or later.3.7
@@ -30,11 +32,23 @@ android {
             }
         }
     }
-
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build type.
+            minifyEnabled true
+
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+            // Shrink resources doesn't work for modules/libraries
+            shrinkResources false
+
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile(
+                    'proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
         }
     }
     compileOptions {
@@ -54,4 +68,18 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.suman-android'
+                artifactId = 'servicelibrary'
+                version = '1.0'
+            }
+        }
+    }
 }
