@@ -63,9 +63,9 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.suman-android'
-                artifactId = 'servicelibrary'
-                version = '1.0'
+                groupId = 'com.github.Suman-Android'
+                artifactId = 'servicelib'
+                version = '1.0.6'
             }
         }
     }
