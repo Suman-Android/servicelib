@@ -3,7 +3,7 @@ package com.pega.moduledemo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.pega.ebol.MyIntentService
+import com.pega.servicelibrary.MyIntentService
 
 
 class MainActivity : AppCompatActivity() {
