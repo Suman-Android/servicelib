@@ -1,0 +1,7 @@
+{
+"address_skip_text": "Prepaid / 3rd Party: ",
+"address_skip_text_1": "Bill to: ",
+"address_strip_word": ["Name:", "Address:", "City/State/Zip:", "Name", "Address", "City/State/Zip"],
+"address_strip_row_word": ["Reference Number:", "hereby", "set forth", "governa", "governs", "ATTN:"],
+"address_skip_row": ["", ".", ":", "/", "CONSIGNEE", "STREET", "CITY", "STATE", "ZIP", "SHIPPER", "MANAGER", "CENTRAL PURCHASING", "(R1C1)", "LLC"]
+}

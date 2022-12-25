@@ -1,0 +1,2 @@
+py -m pip install pandas==1.0.1
+py -m pip install address
