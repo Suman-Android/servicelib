@@ -1,0 +1,2 @@
+com.pega.ebol
+layout activity_test

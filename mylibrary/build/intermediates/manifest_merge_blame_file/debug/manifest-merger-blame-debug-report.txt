@@ -1,0 +1,21 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.pega.ebol" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="21"
+6-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="32" />
+7-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml
+8
+9    <application>
+9-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml:4:5-8:19
+10        <service
+10-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml:5:9-7:48
+11            android:name="com.pega.ebol.MyIntentService"
+11-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml:6:13-44
+12            android:exported="false" />
+12-->/Users/suman.1.singh/AndroidStudioProjects/ModuleDemo/mylibrary/src/main/AndroidManifest.xml:7:13-37
+13    </application>
+14
+15</manifest>
