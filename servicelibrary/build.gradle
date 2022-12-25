@@ -17,11 +17,10 @@ android {
         consumerProguardFiles "consumer-rules.pro"
         python {
 //            buildPython "C:/suman.1.singh/AppData/Local/python.exe"
-            version "3.8"
             // If Chaquopy fails to find Python on your build machine, enable the following
             // line and edit it to point to Python 3.5 or later.3.7
             // buildPython "C:/Python36/python.exe"
-
+            buildPython "C:/Users/Suman.1.Singh/AppData/Local/Programs/Python/Python38/python.exe"
             pip {
                 install "six"
                 install "pandas"
