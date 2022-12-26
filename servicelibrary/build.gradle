@@ -16,7 +16,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         python {
-            buildPython "C:/Users/Suman.1.Singh/AppData/Local/Programs/Python/Python38/python.exe"
             pip {
                 install "six"
                 install "pandas"
@@ -60,7 +59,7 @@ afterEvaluate {
 
                 groupId = 'com.github.Suman-Android'
                 artifactId = 'servicelib'
-                version = '1.0.8'
+                version = '1.0.9'
             }
         }
     }
