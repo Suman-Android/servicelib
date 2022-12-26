@@ -3,6 +3,8 @@ package com.pega.servicelibrary
 import android.app.IntentService
 import android.content.Intent
 import android.util.Log
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import java.io.File
 
 class MyIntentService() : IntentService("name") {
@@ -11,15 +13,15 @@ class MyIntentService() : IntentService("name") {
         try {
             val dirPath = "${filesDir}/routes/estesBOL/Output/NewMLData.json"
             createDir(dirPath)
-//
-//            if (!Python.isStarted()){
-//                Python.start(AndroidPlatform(this))
-//            }
-//
-//
-//            val py = Python.getInstance()getInstance
-//            val data =data py.getModule("estes_mebol_extract").callAttr("main", "NewMLData.json")
-//            Log.e("MyIntentService", data.toString())
+
+            if (!Python.isStarted()){
+                Python.start(AndroidPlatform(this))
+            }
+
+
+            val py = Python.getInstance()
+            val data = py.getModule("estes_mebol_extract").callAttr("main", "NewMLData.json")
+            Log.e("MyIntentService", data.toString())
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("MyIntentService", e.localizedMessage)
