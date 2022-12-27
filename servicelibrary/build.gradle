@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         python {
-            buildPython "C:\\Users\\Suman.1.Singh\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
+          //  buildPython "C:\\Users\\Suman.1.Singh\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
             pip {
                 install "six"
                 install "pandas"
