@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.chaquo.python'  // Must come after com.android.application
+    id 'com.chaquo.python'
     id 'maven-publish'
 }
 
@@ -16,10 +16,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         python {
-            buildPython "https://github.com/Suman-Android/pyhtonlib/blob/main/Python311/python.exe?raw=true"
+            buildPython "C:/suman.1.singh/AppData/Local/python.exe"
+            // If Chaquopy fails to find Python on your build machine, enable the following
+            // line and edit it to point to Python 3.5 or later.3.7
+            // buildPython "C:/Python36/python.exe"
+
             pip {
                 install "six"
                 install "pandas"
+//                install "address"
             }
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
@@ -40,27 +45,28 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    implementation("com.google.mlkit:image-labeling:17.0.7")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:18.0.2")
+    implementation("com.google.android.gms:play-services-mlkit-image-labeling:16.0.8")
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.example.servicelibrary'
+            artifactId = 'servicelibrary'
+            version = '2.0'
+            afterEvaluate {
                 from components.release
-
-                groupId = 'com.github.Suman-Android'
-                artifactId = 'servicelib'
-                version = '1.1.0'
             }
         }
     }
