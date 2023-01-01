@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.chaquo.python'
 }
 
 android {
@@ -14,22 +13,6 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
-        python {
-
-            // If Chaquopy fails to find Python on your build machine, enable the following
-            // line and edit it to point to Python 3.5 or later.3.7
-            // buildPython "C:/Python36/python.exe"
-//            buildPython "/servicelib/ModuleDemo/servicelibrary/src/main/Python311/python.exe"
-
-            pip {
-                install "six"
-                install "pandas"
-            }
-        }
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
