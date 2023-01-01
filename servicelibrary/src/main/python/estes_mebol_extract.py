@@ -11,7 +11,7 @@ from types import SimpleNamespace
 # cwd = "/system/app/src/main/python"
 # cwd = os.environ["HOME"]
 customdir = os.path.dirname(__file__)
-print("Custom Dir "+customdir)
+print("Custom Dir New " + customdir)
 cwd = customdir
 print(cwd)
 input_path = os.path.join(cwd, "routes", "estesBOL", "Input")
@@ -278,7 +278,7 @@ def extract(input_folder_path, output_folder_path, json_file):
         # with open(aws_json_path, 'r') as file:
         #     text = file.read()
         #     text = unidecode.unidecode(text)
-        text = doc.resultText
+        text = doc.resultText + "\n\n"
 
 
         originLabel = ""

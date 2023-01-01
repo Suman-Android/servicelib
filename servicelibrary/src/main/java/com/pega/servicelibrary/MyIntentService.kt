@@ -48,14 +48,6 @@ class MyIntentService : IntentService("name") {
         }
     }
 
-    fun createDir(dirPath: String) {
-        val dirPathInput = dirPath
-        val dirFileInput = File(dirPathInput)
-        if (!dirFileInput.exists()) {
-            dirFileInput.mkdirs()
-        }
-    }
-
     private fun getTextRecognise(image: InputImage, fileName: String) {
         var finalResult = ""
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
