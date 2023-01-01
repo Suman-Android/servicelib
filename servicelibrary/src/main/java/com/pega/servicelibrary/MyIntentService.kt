@@ -27,7 +27,10 @@ class MyIntentService : IntentService("name") {
     override fun onHandleIntent(intent: Intent?) {
         try {
             Log.e(TAG, "Hello from Service")
-            val imageName = intent?.getStringExtra(IMAGE_NAME)
+            val imageName = intent?.getStringExtra(IMAGE_NAME).toString()
+            val fileName = imageName.split(".")[0] + ".json"
+            Log.e(TAG, "Image Name $imageName")
+            Log.e(TAG, "File Name $fileName♥")
             val pegaFile: File = File("${filesDir}/ClientStore/$imageName")
             if (pegaFile.exists()) {
                 Log.e(TAG, pegaFile.path.toString() + " " + pegaFile.exists().toString())
@@ -35,7 +38,7 @@ class MyIntentService : IntentService("name") {
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 capturedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream)
                 val inputImage: InputImage = InputImage.fromBitmap(capturedBitmap, 0)
-                getTextRecognise(inputImage)
+                getTextRecognise(inputImage,fileName)
             } else {
                 resultReceiverCallBack?.onError("File Not Found")
             }
@@ -53,7 +56,7 @@ class MyIntentService : IntentService("name") {
         }
     }
 
-    private fun getTextRecognise(image: InputImage) {
+    private fun getTextRecognise(image: InputImage, fileName: String) {
         var finalResult = ""
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         recognizer.process(image).addOnSuccessListener { result ->
@@ -176,12 +179,12 @@ class MyIntentService : IntentService("name") {
                 val dirPathInput =
                     "${filesDir}/chaquopy/AssetFinder/app/routes/estesBOL/Input"
 
-                val xmlFile: File = File(dirPathInput + "/NewMLData4.json")
+                val xmlFile: File = File(dirPathInput + "/$fileName")
                 xmlFile.writeText(
                     jsonObjectresultText.toString().replace("\\", "").replace("]\"", "]")
                         .replace("\"[", "[").replace("FGMLKITND", "\\n")
                 )
-                getPythonExtraction()
+                getPythonExtraction(fileName)
             } catch (e: Exception) {
                 e.printStackTrace()
                 resultReceiverCallBack?.onError(e.localizedMessage)
@@ -197,14 +200,14 @@ class MyIntentService : IntentService("name") {
         return BitmapFactory.decodeFile(pegaFile.path)
     }
 
-    fun getPythonExtraction() {
+    fun getPythonExtraction(fileName: String) {
         try {
             if (!Python.isStarted()) {
                 Python.start(AndroidPlatform(applicationContext))
             }
             val py = Python.getInstance()
             val extractPythonData =
-                py.getModule("estes_mebol_extract").callAttr("main", "NewMLData4.json")
+                py.getModule("estes_mebol_extract").callAttr("main", fileName)
             Log.i(TAG, extractPythonData.toString())
             resultReceiverCallBack?.onSuccess(extractPythonData.toString())
         } catch (e: Exception) {
