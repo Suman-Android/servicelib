@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(), ResultReceiverCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        MyIntentService().startServiceForPython(this, "Suman", result)
+        MyIntentService().startServiceForPython(this, "NewMLData.jpg", result)
     }
 
     override fun onSuccess(data: String) {

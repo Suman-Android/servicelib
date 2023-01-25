@@ -1,2 +1,11 @@
-DocName,addressName_Shipper,addressLine1_Shipper,city_Shipper,state_Shipper,zip_Shipper,addressName_Consignee,addressLine1_Consignee,city_Consignee,state_Consignee,zip_Consignee,OT_PRO,Status
-NewMLData.json,FERGUSON ENTERPRISES-2944,1301 Person St,Durham,NC,27703-5057,160 SPRING ST,CHARLESTON,CHARLESTON,WV,25301,0112657080,Pending
+DocName,addressName_Shipper,addressLine1_Shipper,city_Shipper,state_Shipper,zip_Shipper,addressName_Consignee,addressLine1_Consignee,city_Consignee,state_Consignee,zip_Consignee,OT_PRO,total_Weight,handling_Units,packaging_Type,state_Consignee_Confidence,zip_Consignee_Confidence,OT_PRO_Confidence,total_Weight_Confidence,handling_Units_Confidence,packaging_Type_Confidence,Status
+20220630-BOL-ORG-011-134126-0630-134124342_1.json,Creedmoor Final Assy,1550 AERIALAVE,Creedmoor,NC,27522,659 Parts Dixon,1000 Vaughn Rd,Dixon,CA,95620,0112643784,203,,PALLETS,0.74990594,0.8478882,0.84828365,0.84828365,,0.82112634,Pending
+NewMLData.json,FERGUSON ENTERPRISES-2944,1301 Person St,Durham,NC,27703-5057,160 SPRING ST,CHARLESTON,CHARLESTON,WV,25301,0112657080,103,30,PALLET,0.51107186,0.84828365,0.8403059,0.84453654,0.73015887,0.8375225,Pending
+20220630-BOL-ORG-011-152826-0630-152824338_1.json,Bob Barker Co,7925 Purfoy Rd,Fuquay-Varina,NC,27526,Forest Hill Police Dept,3336 Horton Rd,Forest Hill,TX,76119-6012,0112655606,91.5,,PALLETS,0.7802157,0.84828365,0.83371633,0.82755995,,0.79517365,Pending
+20220630-BOL-ORG-011-155126-0630-155123874_1.json,Fefguson Enterprises -1723,401 Greeen Oaks Pkwy,Holly Springs,NC,27540-0000,),SOUTHERN SALES SERVICE,BALTIMORE,MD,21230,0112638548,120,30,PALLET,0.77299047,0.84828365,0.7526889,0.8223218,0.77521914,0.8198023,Pending
+20220630-BOL-ORG-011-162600-0630-183156457_1.json,,,,,,0000643036,AMAZON cOM LLC AVP9,992194,PA,,0118076854,381,,PALLETS,0.67697906,,0.7930469,0.77064735,,0.80983156,Pending
+20220630-BOL-ORG-011-163626-0630-163623589_1.json,s No,3901 MEST BROAD STREET,RICHMOND,IN,,JENNIFER NAVARRETE,Jennifer Navarrete,CHICAGOo,IL,60620,,,,CRATE,0.75774264,0.83620834,,,,0.8076766,Pending
+20220630-BOL-ORG-011-182726-0630-182723207_1.json,,,,,,SINGER EQUIPMENT cOMPANY,180 HELLER PLACE,180 HELLER PLACE,NJ,08031,0112659399,,,,0.79516727,0.841295,0.8057128,,,,Pending
+Test_NewMLData1.json,Bob Barker C0,7925 Purfoy Rd,"City/State/zip: Fuquay-varina,",,,Forest Hill Police Dept,3336 Horton Ra,Cty/State/Zip: Forest Hill,TX,76119-6012,0112655606,.6,,,0.7928723,0.84828365,0.8385446,0.51092815,,,Pending
+20220630-BOL-ORG-011-171400-0630-171747145_1.json,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,Failed
+20220630-BOL-ORG-011-171400-0630-171747302_1.json,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,-,Failed

@@ -1,0 +1,22 @@
+{
+"cord_range_ltrb_def": [0, 0, 1, 1],
+"bound_margin_ltrb_def": [0, 0, 0, 0],
+"direction_def": "down",
+"rows_def": "10",
+"type_def": "string",
+"cord_range_ltrb_weight": [0, 0, 1, 1],
+"bound_margin_ltrb_weight": [50, 50, 50, 50],
+"direction_weight": "down",
+"rows_weight": 10,
+"type_weight": "decimal",
+"cord_range_ltrb_units": [0, 0, 1, 1],
+"bound_margin_ltrb_units": [50, 50, 50, 50],
+"direction_units": "down",
+"rows_units": 10,
+"type_units": "decimal",
+"cord_range_ltrb_pkg": [0, 0, 1, 1],
+"bound_margin_ltrb_pkg": [50, 50, 50, 50],
+"direction_pkg": "down",
+"rows_pkg": 10,
+"type_pkg": "string"
+}

@@ -21,7 +21,7 @@ class MyIntentService : IntentService("name") {
 
     companion object {
         internal const val IMAGE_NAME = "image_name"
-        internal const val TAG = "MyIntentService"
+        internal const val TAG = "df"
     }
 
     override fun onHandleIntent(intent: Intent?) {
@@ -29,8 +29,6 @@ class MyIntentService : IntentService("name") {
             Log.e(TAG, "Hello from Service")
             val imageName = intent?.getStringExtra(IMAGE_NAME).toString()
             val fileName = imageName.split(".")[0] + ".json"
-            Log.e(TAG, "Image Name $imageName")
-            Log.e(TAG, "File Name $fileName♥")
             val pegaFile: File = File("${filesDir}/ClientStore/$imageName")
             if (pegaFile.exists()) {
                 Log.e(TAG, pegaFile.path.toString() + " " + pegaFile.exists().toString())
@@ -38,7 +36,7 @@ class MyIntentService : IntentService("name") {
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 capturedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream)
                 val inputImage: InputImage = InputImage.fromBitmap(capturedBitmap, 0)
-                getTextRecognise(inputImage,fileName)
+                getTextRecognise(inputImage, fileName)
             } else {
                 resultReceiverCallBack?.onError("File Not Found")
             }
@@ -53,10 +51,9 @@ class MyIntentService : IntentService("name") {
         val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
         recognizer.process(image).addOnSuccessListener { result ->
             try {
-                Log.e(TAG, "TextRecognitionData " + result.textBlocks.toString())
                 var jsonObjectresultText = JSONObject()
                 jsonObjectresultText.put(
-                    "resultText", result.text.replace("\n", "FGMLKITND").replace("\"", "")
+                    "resultText", result.text.replace("\n", "FGMLKITND")
                 )
 
                 var jsonArrayblock = ArrayList<JSONObject>()
@@ -66,7 +63,8 @@ class MyIntentService : IntentService("name") {
                     var jsonObjecttextBlocks = JSONObject()
 
                     jsonObjecttextBlocks.put(
-                        "blockText", block.text.replace("\n", "FGMLKITND").replace("\"", "")
+                        "blockText",
+                        block.text.replace("\n", "FGMLKITND").replace("\"", "").replace("[","")
                     )
 
                     var jsonObjectblockboundingBox = JSONObject()
@@ -96,7 +94,8 @@ class MyIntentService : IntentService("name") {
 
                         var jsonObjectline = JSONObject()
                         jsonObjectline.put(
-                            "lineText", line.text.replace("\n", "FGMLKITND").replace("\"", "")
+                            "lineText",
+                            line.text.replace("\n", "FGMLKITND").replace("\"", "").replace("[","")
                         )
                         jsonObjectline.put("lineConfidence", line.confidence)
                         var lineboundingBox = JSONObject()
@@ -126,7 +125,7 @@ class MyIntentService : IntentService("name") {
 
                             jsonObjectelement.put(
                                 "elemenText",
-                                element.text.replace("\n", "FGMLKITND").replace("\"", "")
+                                element.text.replace("\n", "FGMLKITND").replace("\"", "").replace("[", "")
                             )
                             jsonObjectelement.put("elementConfidence", element.confidence)
 
@@ -166,19 +165,10 @@ class MyIntentService : IntentService("name") {
                 }
 
                 jsonObjectresultText.put("textBlocks", jsonArrayblock)
-//            Log.e(TAG, jsonObjectresultText.toString())
-
-                val dirPathInput =
-                    "${filesDir}/chaquopy/AssetFinder/app/routes/estesBOL/Input"
-
-                val xmlFile: File = File(dirPathInput + "/$fileName")
-                xmlFile.writeText(
-                    jsonObjectresultText.toString().replace("\\", "").replace("]\"", "]")
-                        .replace("\"[", "[").replace("FGMLKITND", "\\n")
-                )
-                getPythonExtraction(fileName)
+                getPythonExtraction(fileName, jsonObjectresultText.toString())
             } catch (e: Exception) {
                 e.printStackTrace()
+                Log.e(TAG, e.message.toString())
                 resultReceiverCallBack?.onError(e.localizedMessage)
             }
         }.addOnFailureListener { e ->
@@ -192,15 +182,21 @@ class MyIntentService : IntentService("name") {
         return BitmapFactory.decodeFile(pegaFile.path)
     }
 
-    fun getPythonExtraction(fileName: String) {
+    fun getPythonExtraction(fileName: String, jsonString: String) {
         try {
             if (!Python.isStarted()) {
                 Python.start(AndroidPlatform(applicationContext))
             }
             val py = Python.getInstance()
+            val dirPathInput = "${filesDir}/chaquopy/AssetFinder/app/routes/estesBOL/Input"
+            val xmlFile: File = File(dirPathInput + "/$fileName")
+            xmlFile.writeText(
+                jsonString.replace("\\", "").replace("]\"", "]")
+                    .replace("\"[", "[").replace("FGMLKITND", "\\n")
+            )
             val extractPythonData =
                 py.getModule("estes_mebol_extract").callAttr("main", fileName)
-            Log.i(TAG, extractPythonData.toString())
+            Log.e(TAG, extractPythonData.toString())
             resultReceiverCallBack?.onSuccess(extractPythonData.toString())
         } catch (e: Exception) {
             e.printStackTrace()

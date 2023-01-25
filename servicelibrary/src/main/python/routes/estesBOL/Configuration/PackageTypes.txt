@@ -1,0 +1,6 @@
+{
+"Pallet": "PT",
+"Crate": "CR",
+"Skid": "SK",
+"Pallets": "PLT"
+}

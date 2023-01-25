@@ -62,9 +62,9 @@ dependencies {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId = 'com.example.servicelibrary'
-            artifactId = 'servicelibrary'
-            version = '2.0'
+            groupId = 'com.coforge.quasar'
+            artifactId = 'pythonlibrary'
+            version = '1.0.1'
             afterEvaluate {
                 from components.release
             }
