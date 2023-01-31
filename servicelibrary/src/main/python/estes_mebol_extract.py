@@ -14,7 +14,7 @@ from types import SimpleNamespace
 customdir = os.path.dirname(__file__)
 cwd = customdir
 print(cwd)
-print("Quasar: Version4, 25Jan23")
+print("Quasar: Version4, 31Jan23")
 
 input_path = os.path.join(cwd, "routes", "estesBOL", "Input")
 output_path = os.path.join(cwd, "routes", "estesBOL", "Output")
@@ -248,7 +248,8 @@ def generic_field_label(header, synDict, docExtract, cord_range_ltrb):
                                     item_word_list = item.split()
                                     for element in line.elements:
                                         # Identify the right bounding box of the last element of the item
-                                        if item_word_list[-1] == str(element.elemenText):
+                                        # if item_word_list[-1] == str(element.elemenText):
+                                        if str(element.elemenText).startswith(item_word_list[-1]):
                                             label_end_frame = element.elementFrame.__dict__.copy()
                                             label_frame = line.lineFrame.__dict__.copy()
                                             label_frame["right"] = label_end_frame["right"]
@@ -289,7 +290,8 @@ def elements_interest(field_area_interest, type_field, docExtract):
                     if element.elementFrame.right <= field_area_interest["right"]:
                         if element.elementFrame.top >= field_area_interest["top"]:
                             if element.elementFrame.bottom <= field_area_interest["bottom"]:
-                                elements_interest_list.append(element.elemenText)
+                                # Handling of special characters in Decimal type fields
+                                elements_interest_list.append(element.elemenText.replace("!", ".").replace("|", "").replace(",", ""))
                                 elements_int_conf_list.append(element.elementConfidence)
 
     # print("Initial elements_interest_list:")
@@ -298,7 +300,7 @@ def elements_interest(field_area_interest, type_field, docExtract):
     # if type_field.lower() == "decimal":
     for index, element_interest in reversed(list(enumerate(elements_interest_list))):
         try:
-            element_interest.replace("lbs", "")
+            element_interest = element_interest.replace("lbs", "")
             element_interest.strip()
             float(element_interest)
             if type_field.lower() == "string":
@@ -404,6 +406,7 @@ def extract(input_folder_path, output_folder_path, json_file):
         # parse json data
         input_file_path = os.path.join(input_folder_path, json_file)
         # with open(aws_json_path, 'r') as document:
+        # Handling of Special Characters
         with open(input_file_path, 'r', encoding="utf-8") as document:
             # response = json.loads(document.read())
             doc = json.loads(document.read(), object_hook=lambda d: SimpleNamespace(**d))
@@ -454,8 +457,13 @@ def extract(input_folder_path, output_folder_path, json_file):
         destLabelRow = '\n' + destLabelRow + '\n'
         originEndLabelRow = '\n' + originEndLabelRow + '\n'
 
+        # Handling of Shipper Header at start of the document
         if originLabelRow in text:
             originIndex = text.index(originLabelRow)
+        elif originLabelRow.lstrip() in text:
+            originLabelRow = originLabelRow.lstrip()
+            originIndex = text.index(originLabelRow)
+
         destIndex = text.index(destLabelRow)
 
         if (len(originEndLabelRow.strip()) > 0):
