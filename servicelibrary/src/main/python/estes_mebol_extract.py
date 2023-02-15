@@ -14,7 +14,7 @@ from types import SimpleNamespace
 customdir = os.path.dirname(__file__)
 cwd = customdir
 print(cwd)
-print("Quasar: Version4, 31Jan23")
+print("Quasar: Version5, 15Feb23")
 
 input_path = os.path.join(cwd, "routes", "estesBOL", "Input")
 output_path = os.path.join(cwd, "routes", "estesBOL", "Output")
@@ -375,16 +375,16 @@ def extract(input_folder_path, output_folder_path, json_file):
         with open(output_table_json, 'w') as outfile:
             json.dump(f, outfile)
 
-        # Changes for addition of Confidence fields
+        # Changes for addition of Confidence fields, is_amazon_third_party field
         csv_row_data = [json_file, "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-",
-                        "-", "-", "-",
+                        "-", "-", "-", "-",
                         "Processing"]
         columns_names = ["DocName", "addressName_Shipper", "addressLine1_Shipper", "city_Shipper", "state_Shipper",
                          "zip_Shipper", "addressName_Consignee", "addressLine1_Consignee", "city_Consignee",
                          "state_Consignee", "zip_Consignee", "OT_PRO", "total_Weight", "handling_Units",
-                         "packaging_Type", "state_Consignee_Confidence", "zip_Consignee_Confidence",
-                         "OT_PRO_Confidence", "total_Weight_Confidence", "handling_Units_Confidence",
-                         "packaging_Type_Confidence", "Status"]
+                         "packaging_Type", "is_Amazon_Third_Party", "state_Consignee_Confidence",
+                         "zip_Consignee_Confidence", "OT_PRO_Confidence", "total_Weight_Confidence",
+                         "handling_Units_Confidence", "packaging_Type_Confidence", "Status"]
 
         if os.path.exists(status_path):
             presentDf = pd.read_csv(status_path, index_col=False)
@@ -814,6 +814,21 @@ def extract(input_folder_path, output_folder_path, json_file):
         # Extraction of the Packaging Type from a table/outside table in the document - Changes end
 
         # Data extraction for a Generic field - Changes end
+
+        # Data extraction for is_amazon_third_party field - Changes start
+        is_amazon_third_party = False
+        third_party_list_const = constantsDict.get('third_party_list')
+        if pd.notna(third_party_list_const):
+            for third_party_item in third_party_list_const:
+                if third_party_item and third_party_item.strip():
+                    if third_party_item.lower() in text.lower():
+                        is_amazon_third_party = True
+
+        # print("is_amazon_third_party: " + str(is_amazon_third_party))
+        is_amazon_third_party_details = {"is_Amazon_Third_Party": is_amazon_third_party}
+        extractBOL.update(is_amazon_third_party_details)
+
+        # Data extraction for is_amazon_third_party field - Changes end
 
         # Changes for addition of Confidence fields start
         # Confidence score for Consignee State

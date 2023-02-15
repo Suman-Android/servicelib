@@ -28,18 +28,18 @@ class MyIntentService : IntentService("name") {
 
     override fun onHandleIntent(intent: Intent?) {
         try {
-            Logger.showErrorLog(tag = TAG, msg = "Hello from Service")
             val imageName = intent?.getStringExtra(IMAGE_NAME).toString()
             val fileName = imageName.split(".")[0] + ".json"
             val pegaFile: File = File("${filesDir}/ClientStore/$imageName")
             if (pegaFile.exists()) {
-                Logger.showErrorLog(
-                    tag = TAG, msg = pegaFile.path.toString() + " " + pegaFile.exists().toString()
-                )
                 val capturedBitmap = getBitmap(pegaFile)
                 val byteArrayOutputStream = ByteArrayOutputStream()
                 capturedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream)
-                val inputImage: InputImage = InputImage.fromBitmap(capturedBitmap, 0)
+                var rotation = 0
+                if (capturedBitmap.height < capturedBitmap.width) {
+                    rotation = 90
+                }
+                val inputImage: InputImage = InputImage.fromBitmap(capturedBitmap, rotation)
                 getTextRecognise(inputImage, fileName)
             } else {
                 resultReceiverCallBack?.onError("File Not Found")
